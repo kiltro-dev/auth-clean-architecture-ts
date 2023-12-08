@@ -1,4 +1,6 @@
 import { Server } from './presentation/server';
+import { envs } from './config';
+import { AppRoutes } from './presentation/routes';
 
 (() => {
   main();
@@ -6,5 +8,5 @@ import { Server } from './presentation/server';
 async function main() {
   // TODO: await const
   // TODO: server init
-  new Server({}).start();
+  new Server({ port: envs.PORT, routes: AppRoutes.routes }).start();
 }
