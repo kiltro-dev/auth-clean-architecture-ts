@@ -1,4 +1,5 @@
 import express from 'express';
+import { envs } from '../config';
 
 interface Options {
   port?: number;
@@ -12,7 +13,7 @@ export class Server {
     this.port = port;
   }
   async start() {
-    this.app.listen(3000, () => {
+    this.app.listen(envs.PORT, () => {
       console.log(`Server running on port ${this.port}`);
     });
   }
