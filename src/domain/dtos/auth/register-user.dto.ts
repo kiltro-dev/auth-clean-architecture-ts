@@ -1,4 +1,4 @@
-import { Validators } from '../../../config';
+import { Validators } from '../../../config/validators';
 
 export class RegisterUserDto {
   private constructor(
@@ -7,12 +7,12 @@ export class RegisterUserDto {
     public password: string,
   ) {}
 
-  static create(object: { [key: string]: any }): [string?, RegisterUserDto?] {
+  static create(object: Record<string, unknown>): [string?, RegisterUserDto?] {
     const { name, email, password } = object;
-    if (!name) return ['Missing name'];
-    if (!email) return ['Missing email'];
+    if (typeof name !== 'string' || name.length === 0) return ['Missing name'];
+    if (typeof email !== 'string' || email.length === 0) return ['Missing email'];
     if (!Validators.email.test(email)) return ['Email is not valid'];
-    if (!password) return ['Missing password'];
+    if (typeof password !== 'string' || password.length === 0) return ['Missing password'];
     if (password.length < 6) return ['Password too short'];
 
     return [undefined, new RegisterUserDto(name, email, password)];
